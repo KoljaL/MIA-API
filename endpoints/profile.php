@@ -16,48 +16,55 @@ use RedBeanPHP\R as R;
  * @return JSON with customerdata
  */
 
-$staff_id =   $user['staff_id'];
-$staffData = R::getAll('SELECT * FROM staff WHERE id = ?', [$staff_id]);
+//
+// id no value isset, get own profile
+//
+if ($url['value'] === '') {
+    $user_id =   $user['user_id'];
+    $user_data = R::load('user', $user_id);
 
-// pprint($staffData);
 
-// if no customers found return to frontend
-if (empty($staffData)) {
-    $response['data'] = '';
-    $response['message'] = 'no staff found';
+
+    // convert to array
+    $user_data = $user_data->export();
+
+    // remove password
+    unset($user_data['password']);
+
+    // ad data to response
+    $response['data'] = $user_data;
+
+    // return data to frontend
     returnJSON($response);
 }
-
-// remove some keys
-// foreach ($staffData as &$customer) {
-//     unset($customer['password']);
-// }
-
-// ad data to response
-$response['data'] = $staffData;
-
-// return data to frontend
-returnJSON($response);
+//
+// is is admin, get profile of user_id by value
+//
+elseif ($user['role'] === 'admin') {
+    $user_id = $url['value'];
+    $user_data = R::load('user', $user_id);
 
 
-// if (is_numeric($url['value'])) {
-//     $response['data'][0] = getCustomer($url['value']);
-//     returnJSON($response);
-// } else {
-//     $response['data'] = '';
-//     $response['status'] = 400;
-//     $response['message'] = 'no numeric customer_id';
-//     returnJSON($response);
-// }
+    // if no customers found return to frontend
+    if (empty($user_data)) {
+        $response['data'] = '';
+        $response['message'] = 'no staff found';
+        returnJSON($response);
+    }
 
 
+    $user_data = $user_data->export();
+    unset($user_data['password']);
+    $response['data'] = $user_data;
 
-
-
-function getCustomer($id)
-{
-    $customer = R::load('customer', $id);
-    $data = $customer->export();
-    unset($data['password']);
-    return $data;
+    returnJSON($response);
+}
+//
+// if current user is not admin & value is not empty
+//
+else {
+    $response['data'] = '';
+    $response['status'] = 400;
+    $response['message'] = 'not allowed to see';
+    returnJSON($response);
 }

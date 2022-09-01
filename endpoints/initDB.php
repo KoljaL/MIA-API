@@ -42,12 +42,11 @@ function initDB()
     $user->avatar = 'https://i.pravatar.cc/150';
     $user->registrationdate = date("Y-m-d H:i");
     $user->role = 'admin';
-
-
     R::store($user);
 
+
     //
-    // create first customer
+    // create first user
     //
     $user = R::dispense('user');
     $user->name = 'user';
@@ -57,35 +56,21 @@ function initDB()
     $user->avatar = 'https://i.pravatar.cc/150';
     $user->registrationdate = date("Y-m-d H:i");
     $user->role = 'user';
-
-    //
-    // init projects
-    //
-    // $project = R::dispense('project');
-    // $project->title = 'project';
-
-    // //
-    // // init appointments
-    // //
-    // $appointment = R::dispense('appointment');
-    // $appointment->title = 'appointment';
-    // $appointment->date = date("Y-m-d H:i");
+    R::store($user);
 
 
 
     //
-    // store in database
+    // create second user
     //
-
-    // $user->ownCustomerList[] = $user;
-    // $user->ownProjectList[] = $project;
-    // $user->ownAppointmentList[] = $appointment;
-
-    // $user->ownProjectList[] = $project;
-    // $user->ownAppointmentList[] = $appointment;
-
-    // $project->ownAppointmentList[] = $appointment;
-
+    $user = R::dispense('user');
+    $user->name = 'Alice';
+    $user->password = password_hash("password", PASSWORD_DEFAULT);
+    $user->email = 'alice@example.com';
+    $user->address = 'Main Rd. 22, 12234 Capital City';
+    $user->avatar = 'https://i.pravatar.cc/150';
+    $user->registrationdate = date("Y-m-d H:i");
+    $user->role = 'user';
     R::store($user);
 }
 

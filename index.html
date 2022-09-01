@@ -33,9 +33,12 @@
             </fieldset>
         </form>
 
-        <div id=LogOut onclick="logout()" class="uk-margin-bottom uk-width-medium" style="display:none">
-            <button type="submit" class="uk-button uk-button-primary uk-border-rounded uk-width-1-1">LOG OUT</button>
+        <div id=LogOut class="uk-margin-bottom uk-width-medium" style="display:none">
+            <button onclick="logout()" type="submit" class="uk-button uk-button-primary uk-border-rounded uk-width-1-1">LOG OUT</button>
+            <button onclick="getProfile('')" type="submit" class="uk-button uk-button-primary uk-border-rounded uk-width-1-1">GET MY PROFILE</button>
+            <button onclick="getProfile('3')" type="submit" class="uk-button uk-button-primary uk-border-rounded uk-width-1-1">GET ALICE`S PROFILE</button>
         </div>
+        <div id="UserProfile"></div>
         <!-- /login -->
 
 
@@ -56,6 +59,7 @@
     <script>
         const LogInForm = document.getElementById('LogInForm');
         const LogOut = document.getElementById('LogOut');
+        const UserProfile = document.getElementById('UserProfile');
 
         window.addEventListener('DOMContentLoaded', (event) => {
 
@@ -71,6 +75,54 @@
                 LogOut.style.display = 'block';
             }
         });
+
+        // https://reqbin.com/code/javascript/ricgaie0/javascript-fetch-api-example
+
+
+        /**
+         * getProfile(id)
+         * 
+         * API fetch to get profile data
+         * without id the API will serve the own profile data
+         * 
+         * @param numeric id
+         * 
+         * @response JSON
+         */
+        function getProfile(id) {
+
+            fetch('mia/profile/' + id, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        Authentication: 'Bearer ' + localStorage.getItem('MIA_token')
+                    }
+                })
+                .then(resp => resp.json())
+                .then((json) => {
+                    console.log(json.data);
+                    if (json.status === 200) {
+                        let user = json.data;
+                        UserProfile.innerHTML = /*HTML*/ `
+                        <table class="uk-table">
+                            <tr><td>Name:</td><td>${user.name}</td></tr>
+                            <tr><td>Email:</td><td>${user.email}</td></tr>
+                            <tr><td>Address:</td><td>${user.address}</td></tr>
+                            <tr><td>Role:</td><td>${user.role}</td></tr>
+                            </table>
+                            `;
+                    } else {
+                        UserProfile.innerHTML = '';
+                        UIkit.notification({
+                            message: json.message,
+                            status: 'warning',
+                            pos: 'top-center',
+                            timeout: 2000
+                        });
+                    }
+                })
+        }
+
 
 
 
@@ -89,6 +141,10 @@
                     method: 'post',
                     mode: 'same-origin',
                     credentials: 'same-origin',
+                    headers: {
+                        // 'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        // 'Content-type': 'text/html; charset_UTF-8'
+                    },
                     body: new FormData(form)
                 })
                 .then(function(response) {

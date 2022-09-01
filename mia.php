@@ -12,6 +12,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     // you want to allow, and if so:
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization');
     header('Access-Control-Max-Age: 86400');    // cache for 1 day
 }
 // Access-Control headers are received during OPTIONS requests
@@ -35,6 +36,10 @@ require __DIR__ . '/php/functions.php';
 require __DIR__ . '/php/pprint.php';
 
 require __DIR__ . '/vendor/autoload.php';
+
+
+// pprint($_SERVER);
+
 
 //
 // define global vars
@@ -112,7 +117,7 @@ switch ($url['endpoint']) {
             //
             // verify JWT from barier and get user properties
             //
-            $jwt ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdGFmZl9pZCI6OCwicm9sZSI6MCwicGVybWlzc2lvbiI6MH0.tzH7VLleNEIq2pJM6tuLs2M2icQoLqpTDqOhrjdMNYc";
+            // $jwt ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdGFmZl9pZCI6OCwicm9sZSI6MCwicGVybWlzc2lvbiI6MH0.tzH7VLleNEIq2pJM6tuLs2M2icQoLqpTDqOhrjdMNYc";
             // $request['token'] = "xxx";
             // print_r($_SERVER['HTTP_AUTHORIZATION']);
             // exit;
@@ -131,12 +136,14 @@ switch ($url['endpoint']) {
             //     echo "2";
             //     exit;
             // }
+            // pprint($_SERVER['HTTP_AUTHENTICATION'], 'HTTP_AUTHENTICATION');
 
-            $jwt = explode(' ', $_SERVER['HTTP_AUTHORIZATION'])[1];
+            $jwt = explode(' ', $_SERVER['HTTP_AUTHENTICATION'])[1];
             // echo $jwt;
             $user = readJWT($jwt);
             $response['user'] = $user;
             // pprint($user, 'User');
+            // exit;
             // $payload = ['staff_id' => 8,'role' => 0,'permission' => 0];
             // pprint(generateJWT($payload));
 
