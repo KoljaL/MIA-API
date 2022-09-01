@@ -1,0 +1,9 @@
+{
+    "require": {
+        "firebase/php-jwt": "^6.3",
+        "gabordemooij/redbean": "dev-master",
+        "phpmailer/phpmailer": "^6.6",
+        "benmajor/redseed": "^1.0",
+        "fakerphp/faker": "^1.20"
+    }
+}
