@@ -952,3 +952,16 @@ p>select {
 fieldset.token {
     align-self: flex-end;
 }
+
+#OverlayMessage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0b9;
+    align-items: center;
+    justify-content: center;
+}

@@ -62,29 +62,28 @@
                 <input type="text" id="TokenSignature">
             </label>
         </fieldset>
-
     </main>
 
 
     <footer>
-        <a class="" href="/php/adminerdev/adminer/sqlite.php?sqlite" target="_blank">Adminer</a>
-        <a class="" href="/mia/initDB/nuke" target="_blank">initDB</a>
-        <a class="" href="/php/makeDocs.php" target="_blank">makeDocs</a>
+        <a class="" href="./php/adminerdev/adminer/sqlite.php?sqlite" target="_blank">Adminer</a>
+        <a class="" href="./mia/initDB/nuke" target="_blank">initDB</a>
+        <a class="" href="./php/makeDocs.php" target="_blank">makeDocs</a>
     </footer>
 
 
-
+    <div id="OverlayMessageOverlay" style="display:none"><span></span></div>
     <script>
         const LogInForm = document.getElementById('LogInForm');
-
         const LogOut = document.getElementById('LogOut');
         const UserProfile = document.getElementById('UserProfile');
         const TokenHeader = document.getElementById('TokenHeader');
         const TokenPayload = document.getElementById('TokenPayload');
         const TokenSignature = document.getElementById('TokenSignature');
+        const OverlayMessageOverlay = document.getElementById('OverlayMessageOverlay');
+        const OverlayMessageText = document.querySelector('#OverlayMessageOverlay span');
 
         window.addEventListener('DOMContentLoaded', (event) => {
-
             /**
              * localStorage.getItem('MIA_token')
              * 
@@ -98,10 +97,24 @@
             }
         });
 
+        function OverlayMessage(message, type) {
+            console.log('message', message)
+            OverlayMessageOverlay.style.dispaly = 'flex';
+            // switch (type) {
+            //     case 'primary':
+            //         OverlayMessageText.classList.add('primary');
+            //         OverlayMessageText.innerHTML = message;
+            //         break;
+
+            //     default:
+            //         break;
+            // }
+            // setTimeout(() => {
+            //     // OverlayMessageOverlay.style.dispaly = 'none';
+            // }, 2000);
+        }
+
         // https://reqbin.com/code/javascript/ricgaie0/javascript-fetch-api-example
-
-
-
         function setLogin(user) {
             const UserEmail = document.getElementById('UserEmail');
             const UserPassword = document.getElementById('UserPassword');
@@ -122,16 +135,25 @@
             }
         }
 
+        /**
+         * getToken()
+         * 
+         * read token from localStorage or input fields
+         */
         function getToken() {
             // if (localStorage.getItem('MIA_token')) {
             //     return localStorage.getItem('MIA_token');
             // }
             if (TokenHeader.value && TokenPayload.value && TokenSignature.value) {
-
                 return TokenHeader.value + '.' + TokenPayload.value + '.' + TokenSignature.value;
             }
         }
 
+        /**
+         * setToken(token)
+         * 
+         * writes token to localStorage on input fields
+         */
         function setToken(token) {
             //   localStorage.setItem('MIA_token',token);
             token = token.split('.');
@@ -175,14 +197,11 @@
                             <img src="${user.avatar}" />
                             `;
                         UserProfile.style.display = 'block';
+                        OverlayMessage(user.name + ' logged in', 'primary');
+
                     } else {
-                        // UserProfile.innerHTML = '';
-                        // UIkit.notification({
-                        //     message: json.message,
-                        //     status: 'warning',
-                        //     pos: 'top-center',
-                        //     timeout: 2000
-                        // });
+                        OverlayMessage(json.message, 'primary');
+                        UserProfile.innerHTML = '';
                     }
                 })
         }

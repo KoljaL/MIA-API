@@ -24,6 +24,7 @@ ini_set("error_log", "./error.log");
 *
 * It takes the URL and returns an array with the endpoint and value
 *
+* @param URI $_SERVER['REQUEST_URI']
 * @return array with the endpoint, value, and ext_1.
 */
 function getEndpoint()
@@ -48,6 +49,8 @@ function getEndpoint()
  * parseRequest()
  *
  * It takes the request body and returns an associative array of the request parameters
+ *
+ * @param file `php://input` or `$_POST`
  *
  * @return array the request.
  */

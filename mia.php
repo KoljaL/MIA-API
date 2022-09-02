@@ -2,7 +2,15 @@
 
 
 
-
+/**
+ *
+ * title HTTP_ORIGIN & REQUEST_METHOD
+ *
+ * allows all origin & headers for API requests
+ *
+ * allow GET, POST & OPTIONS for METHOD & exit()
+ *
+ */
 if (isset($_SERVER['HTTP_ORIGIN'])) {
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     header('Access-Control-Allow-Credentials: true');
@@ -29,7 +37,7 @@ require __DIR__ . '/php/pprint.php';
 require __DIR__ . '/php/functionsDB.php';
 require __DIR__ . '/vendor/autoload.php';
 
-pprint($_SERVER);
+// pprint($_SERVER);
 
 //
 // define global vars
@@ -48,28 +56,45 @@ if (isset($_GET['debug'])) {
 }
 
 
-
-//
-// parse URL and create array with endpoint,value as first named keys
-//
+/**
+ * getEndpoint()
+ *
+ * parse URL and create array with endpoint,value as first named keys
+ *
+ * @param URI $_SERVER['REQUEST_URI']
+ *
+ * @return array ['endpoint' => 'profile', 'value' => id, 2 => 'thirdparam', ...]
+ */
 $url = getEndpoint();
 $response['url'] = $url;
 // pprint($url, 'Endpoint');
 
 
 
-//
-// get params from json or POST
-//
+/**
+ * parseRequest()
+ *
+ * get params from json or POST
+ *
+ * @param file `php://input` or `$_POST`
+ *
+ * @return array the request.
+ *
+ */
 $request = parseRequest();
 $response['request'] = $request;
 // pprint($request);
 
 
 
-//
-// make database connection
-//
+/**
+ * title RedBeanPHP
+ *
+ * make database connection
+ *
+ * @param $conf['DB_filename']
+ *
+ */
 RedBeanPHP\R::setup('sqlite:db/'.$conf['DB_filename']);
 
 
@@ -92,6 +117,13 @@ if (isset($_GET['debug']) && $_GET['debug']==='rb') {
 //
 // load file for current endpoint
 //
+
+/**
+ * switch ($url['endpoint'])
+ *
+ * switch to endpoint file by endpoint param
+ * special cases: `login` & `initDB`
+ */
 switch ($url['endpoint']) {
     //
     // special case for login, because we not have a token yet
@@ -111,12 +143,47 @@ switch ($url['endpoint']) {
         // search for file in endpoints
         //
     default:
+        /**
+         *  if (file_exists('endpoints/'.$url['endpoint'].'.php'))
+         *
+         *  check if endpoint-file exists
+         *
+         * @param `$url['endpoint']`
+         *
+         * @return `endpoints/endpoint.php`
+         *
+         */
         if (file_exists('endpoints/'.$url['endpoint'].'.php')) {
             //
             // get and read the JWT and create the user array of it
             //
+            /**
+             * title get JWT from HTTP_AUTHENTICATION
+             *
+             * @param string $_SERVER['HTTP_AUTHENTICATION'])
+             *
+             * @return string $jwt
+             */
             $jwt = explode(' ', $_SERVER['HTTP_AUTHENTICATION'])[1];
-            $user = readJWT($jwt);
+
+
+            /**
+             * readJWT($jwt)
+             *
+             * get current user data (`id`, `role`, `permission`) from JWT
+             * if JWT is invalid return error message
+             *
+             * @param string $jwt
+             *
+             * @return array $user
+             */
+            try {
+                $user = readJWT($jwt);
+            } catch (Exception $e) {
+                $response['status'] = 400;
+                $response['message'] = 'no valid token: '.$e->getMessage();
+                returnJSON($response);
+            }
             $response['user'] = $user;
 
 
