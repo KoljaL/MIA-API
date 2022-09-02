@@ -7,9 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'RedBeanPHP\\' => array($vendorDir . '/gabordemooij/redbean/RedBeanPHP'),
-    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
-    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
-    'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
-    'BenMajor\\RedSeed\\' => array($vendorDir . '/benmajor/redseed/src'),
 );

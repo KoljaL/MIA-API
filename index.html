@@ -49,7 +49,22 @@
             </fieldset>
         </form>
 
-        <div id="UserProfile"></div>
+
+        <fieldset id="UserProfile" style="display:none"> </fieldset>
+
+        <fieldset class="token">
+            <legend>Token in Parts</legend>
+            <label>Header
+                <input type="text" id="TokenHeader">
+            </label>
+            <label>Payload
+                <input type="text" id="TokenPayload">
+            </label>
+            <label>Signature
+                <input type="text" id="TokenSignature">
+            </label>
+        </fieldset>
+
     </main>
 
 
@@ -65,6 +80,9 @@
         const LogInForm = document.getElementById('LogInForm');
         const LogOut = document.getElementById('LogOut');
         const UserProfile = document.getElementById('UserProfile');
+        const TokenHeader = document.getElementById('TokenHeader');
+        const TokenPayload = document.getElementById('TokenPayload');
+        const TokenSignature = document.getElementById('TokenSignature');
 
         window.addEventListener('DOMContentLoaded', (event) => {
 
@@ -75,7 +93,7 @@
              * usefull for page reloads
              * 
              */
-            if (localStorage.getItem('MIA_token')) {
+            if (getToken()) {
                 LogInForm.style.display = 'none';
                 LogOut.style.display = 'block';
             }
@@ -83,6 +101,23 @@
 
         // https://reqbin.com/code/javascript/ricgaie0/javascript-fetch-api-example
 
+        function getToken() {
+            // if (localStorage.getItem('MIA_token')) {
+            //     return localStorage.getItem('MIA_token');
+            // }
+            if (TokenHeader.value && TokenPayload.value && TokenSignature.value) {
+
+                return TokenHeader.value + '.' + TokenPayload.value + '.' + TokenSignature.value;
+            }
+        }
+
+        function setToken(token) {
+            //   localStorage.setItem('MIA_token',token);
+            token = token.split('.');
+            TokenHeader.value = token[0];
+            TokenPayload.value = token[1];
+            TokenSignature.value = token[2];
+        }
 
         /**
          * getProfile(id)
@@ -100,7 +135,7 @@
                     method: 'GET',
                     credentials: 'include',
                     headers: {
-                        Authentication: 'Bearer ' + localStorage.getItem('MIA_token')
+                        Authentication: 'Bearer ' + getToken()
                     }
                 })
                 .then(resp => resp.json())
@@ -109,13 +144,16 @@
                     if (json.status === 200) {
                         let user = json.data;
                         UserProfile.innerHTML = /*HTML*/ `
+                        <legend>Profile: ${user.name}</legend>
                         <table class="uk-table">
-                            <tr><td>Name:</td><td>${user.name}</td></tr>
+                            <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
                             <tr><td>Email:</td><td>${user.email}</td></tr>
                             <tr><td>Address:</td><td>${user.address}</td></tr>
                             <tr><td>Role:</td><td>${user.role}</td></tr>
                             </table>
+                            <img src="${user.avatar}" />
                             `;
+                        UserProfile.style.display = 'block';
                     } else {
                         // UserProfile.innerHTML = '';
                         // UIkit.notification({
@@ -191,6 +229,7 @@
             let payload = JSON.parse(jsonPayload);
             // add token to paload
             payload['token'] = token;
+            setToken(token);
             // store all payload items in localStorage with a prefix 'MIA_'
             for (const item in payload) {
                 localStorage.setItem(`MIA_${item}`, payload[item])
@@ -233,6 +272,9 @@
             // show LogInForm again
             LogInForm.style.display = 'block';
             LogOut.style.display = 'none';
+            UserProfile.innerHTML = '';
+            UserProfile.style.display = 'none';
+
         }
     </script>
 </body>

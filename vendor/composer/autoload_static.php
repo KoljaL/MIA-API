@@ -4,30 +4,16 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit983e5a6171dbc21a65847d2bc7d94a32
+class ComposerStaticInit2ff1ebc84cd11522f35172d2f8872ec3
 {
-    public static $files = array (
-        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
         'R' => 
         array (
             'RedBeanPHP\\' => 11,
         ),
-        'P' => 
-        array (
-            'Psr\\Container\\' => 14,
-            'PHPMailer\\PHPMailer\\' => 20,
-        ),
         'F' => 
         array (
             'Firebase\\JWT\\' => 13,
-            'Faker\\' => 6,
-        ),
-        'B' => 
-        array (
-            'BenMajor\\RedSeed\\' => 17,
         ),
     );
 
@@ -36,25 +22,9 @@ class ComposerStaticInit983e5a6171dbc21a65847d2bc7d94a32
         array (
             0 => __DIR__ . '/..' . '/gabordemooij/redbean/RedBeanPHP',
         ),
-        'Psr\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/container/src',
-        ),
-        'PHPMailer\\PHPMailer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
-        ),
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
-        ),
-        'Faker\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
-        ),
-        'BenMajor\\RedSeed\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/benmajor/redseed/src',
         ),
     );
 
@@ -65,9 +35,9 @@ class ComposerStaticInit983e5a6171dbc21a65847d2bc7d94a32
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit983e5a6171dbc21a65847d2bc7d94a32::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit983e5a6171dbc21a65847d2bc7d94a32::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit983e5a6171dbc21a65847d2bc7d94a32::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2ff1ebc84cd11522f35172d2f8872ec3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2ff1ebc84cd11522f35172d2f8872ec3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit2ff1ebc84cd11522f35172d2f8872ec3::$classMap;
 
         }, null, ClassLoader::class);
     }

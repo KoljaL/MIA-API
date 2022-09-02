@@ -108,6 +108,8 @@ body>header>h1 {
 
 body>main {
     height: calc(100vh - var(--header-height) - var(--footer-height));
+    display: flex;
+    flex-wrap: wrap;
 }
 
 body>footer {
@@ -228,6 +230,10 @@ h6+p {
 
 /* tables */
 
+table {
+    display: inline-table;
+}
+
 td,
 th {
     padding: 0.5em 0.8em;
@@ -235,6 +241,10 @@ th {
     border-bottom: 0.1rem solid var(--cmed);
     white-space: nowrap;
     font-size: 95%;
+}
+
+tr:last-of-type td {
+    border-bottom: none;
 }
 
 thead th[colspan] {
@@ -921,6 +931,24 @@ p>select {
 }
 
 #UserProfile {
+    position: relative;
     width: 500px;
     margin-inline: auto;
+    height: max-content;
+}
+
+#UserProfile img {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    width: 50px;
+    height: auto;
+}
+
+#UserProfile tr:first-of-type td {
+    border-bottom: none;
+}
+
+fieldset.token {
+    align-self: flex-end;
 }
