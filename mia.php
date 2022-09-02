@@ -1,24 +1,16 @@
 <?php
 
-// print_r($_GET);
-// exit;
 
 
 
-
-// Allow from any origin
 if (isset($_SERVER['HTTP_ORIGIN'])) {
-    // Decide if the origin in $_SERVER['HTTP_ORIGIN'] is one
-    // you want to allow, and if so:
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization');
-    header('Access-Control-Max-Age: 86400');    // cache for 1 day
+    header('Access-Control-Max-Age: 86400');
 }
-// Access-Control headers are received during OPTIONS requests
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])) {
-        // may also be using PUT, PATCH, HEAD etc
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
     }
     if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'])) {
@@ -34,21 +26,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 require __DIR__ . '/php/config.php';
 require __DIR__ . '/php/functions.php';
 require __DIR__ . '/php/pprint.php';
-
+require __DIR__ . '/php/functionsDB.php';
 require __DIR__ . '/vendor/autoload.php';
 
-
-// pprint($_SERVER);
-
+pprint($_SERVER);
 
 //
 // define global vars
 //
 $response = [];
+$response['data'] = '';
 $response['JSONoutput'] = true;
 $response['status'] = 200;
 $response['message'] = '';
 
+//
+// for debug mode disable the JSON header
+//
 if (isset($_GET['debug'])) {
     $response['JSONoutput'] = false;
 }
@@ -56,7 +50,7 @@ if (isset($_GET['debug'])) {
 
 
 //
-// parse URL and create array with endpoint,value & ext_1
+// parse URL and create array with endpoint,value as first named keys
 //
 $url = getEndpoint();
 $response['url'] = $url;
@@ -74,10 +68,11 @@ $response['request'] = $request;
 
 
 //
-// make database connection & load utiliti functions
+// make database connection
 //
 RedBeanPHP\R::setup('sqlite:db/'.$conf['DB_filename']);
-require __DIR__ . '/php/functionsDB.php';
+
+
 
 //
 // switch between development & production mode
@@ -99,12 +94,15 @@ if (isset($_GET['debug']) && $_GET['debug']==='rb') {
 //
 switch ($url['endpoint']) {
     //
-    // special case for login, because we have no token
+    // special case for login, because we not have a token yet
     //
     case 'login':
         require 'endpoints/login.php';
         break;
         exit;
+        //
+        // special case to load the init function
+        //
     case 'initDB':
         require 'endpoints/initDB.php';
         break;
@@ -115,39 +113,11 @@ switch ($url['endpoint']) {
     default:
         if (file_exists('endpoints/'.$url['endpoint'].'.php')) {
             //
-            // verify JWT from barier and get user properties
+            // get and read the JWT and create the user array of it
             //
-            // $jwt ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdGFmZl9pZCI6OCwicm9sZSI6MCwicGVybWlzc2lvbiI6MH0.tzH7VLleNEIq2pJM6tuLs2M2icQoLqpTDqOhrjdMNYc";
-            // $request['token'] = "xxx";
-            // print_r($_SERVER['HTTP_AUTHORIZATION']);
-            // exit;
-
-
-            // if (! preg_match('/Bearer\s(\S+)/', $_SERVER['HTTP_AUTHORIZATION'], $matches)) {
-            //     header('HTTP/1.0 400 Bad Request');
-            //     echo 'Token not found in request';
-            //     exit;
-            // }
-
-            // $jwt = $matches[1];
-            // if (! $jwt) {
-            //     // No token was able to be extracted from the authorization header
-            //     header('HTTP/1.0 400 Bad Request');
-            //     echo "2";
-            //     exit;
-            // }
-            // pprint($_SERVER['HTTP_AUTHENTICATION'], 'HTTP_AUTHENTICATION');
-
             $jwt = explode(' ', $_SERVER['HTTP_AUTHENTICATION'])[1];
-            // echo $jwt;
             $user = readJWT($jwt);
             $response['user'] = $user;
-            // pprint($user, 'User');
-            // exit;
-            // $payload = ['staff_id' => 8,'role' => 0,'permission' => 0];
-            // pprint(generateJWT($payload));
-
-
 
 
             //
@@ -161,7 +131,9 @@ switch ($url['endpoint']) {
         // throw error if no endpoint found
         //
         else {
-            echo "no such endpoint";
+            $response['status'] = 400;
+            $response['message'] = 'no such endpoint';
+            returnJSON($response);
         }
         break;
 }

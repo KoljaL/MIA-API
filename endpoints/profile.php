@@ -37,6 +37,8 @@ if ($url['value'] === '') {
     // return data to frontend
     returnJSON($response);
 }
+
+
 //
 // is is admin, get profile of user_id by value
 //
@@ -47,7 +49,6 @@ elseif ($user['role'] === 'admin') {
 
     // if no customers found return to frontend
     if (empty($user_data)) {
-        $response['data'] = '';
         $response['message'] = 'no staff found';
         returnJSON($response);
     }
@@ -59,11 +60,12 @@ elseif ($user['role'] === 'admin') {
 
     returnJSON($response);
 }
+
+
 //
 // if current user is not admin & value is not empty
 //
 else {
-    $response['data'] = '';
     $response['status'] = 400;
     $response['message'] = 'not allowed to see';
     returnJSON($response);

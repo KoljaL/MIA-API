@@ -32,20 +32,18 @@
 
 
         <form id=LogInForm onsubmit="submitLogin(this)">
-            <fieldset class=" ">
-                <div class="">
-                    <div class=" ">
-                        <input required="" value="admin@example.com" placeholder="mail@example.com" name="email" type="email">
-                    </div>
-                </div>
-                <div class="">
-                    <div class=" ">
-                        <input required="" value="password" placeholder="Password" name="password" type="password">
-                    </div>
-                </div>
-                <div class="">
-                    <button type="submit" class="">LOG IN</button>
-                </div>
+            <span class="button" onclick="setLogin('admin')">Admin</span>
+            <span class="button" onclick="setLogin('user')">User</span>
+            <span class="button" onclick="setLogin('alice')">Alice</span>
+            <fieldset>
+                <legend>Login</legend>
+                <label>Email
+                    <input id="UserEmail" value="admin@example.com" placeholder="mail@example.com" name="email" type="email">
+                </label>
+                <label>Password
+                    <input id="UserPassword" value="password" placeholder="Password" name="password" type="password">
+                </label>
+                <button type="submit" class="">Submit</button>
             </fieldset>
         </form>
 
@@ -78,6 +76,7 @@
 
     <script>
         const LogInForm = document.getElementById('LogInForm');
+
         const LogOut = document.getElementById('LogOut');
         const UserProfile = document.getElementById('UserProfile');
         const TokenHeader = document.getElementById('TokenHeader');
@@ -100,6 +99,28 @@
         });
 
         // https://reqbin.com/code/javascript/ricgaie0/javascript-fetch-api-example
+
+
+
+        function setLogin(user) {
+            const UserEmail = document.getElementById('UserEmail');
+            const UserPassword = document.getElementById('UserPassword');
+            switch (user) {
+                case 'admin':
+                    UserEmail.value = 'admin@example.com';
+                    UserPassword.value = 'password';
+                    break;
+                case 'user':
+                    UserEmail.value = 'user@example.com';
+                    UserPassword.value = 'password';
+                    break;
+                case 'alice':
+                    UserEmail.value = 'alice-bob@secure.net';
+                    UserPassword.value = 'password';
+                    break;
+
+            }
+        }
 
         function getToken() {
             // if (localStorage.getItem('MIA_token')) {
@@ -235,9 +256,9 @@
                 localStorage.setItem(`MIA_${item}`, payload[item])
             }
 
-            // send notification with username 
+            // send notification with UserEmail 
             // UIkit.notification({
-            //     message: `<b> ${payload.username}</b> logged in`,
+            //     message: `<b> ${payload.UserEmail}</b> logged in`,
             //     status: 'success',
             //     pos: 'top-center',
             //     timeout: 2000
@@ -256,7 +277,7 @@
         function logout() {
 
             // UIkit.notification({
-            //     message: `<b> ${localStorage.getItem('MIA_username')}</b> logged out`,
+            //     message: `<b> ${localStorage.getItem('MIA_UserEmail')}</b> logged out`,
             //     status: 'primary',
             //     pos: 'top-center',
             //     timeout: 2000
