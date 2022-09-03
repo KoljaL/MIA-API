@@ -10,27 +10,6 @@
         type="image/svg+xml" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js" integrity="sha512-SYfDUYPg5xspsG6OOpXU366G8SZsdHOhqk/icdrYJ2E/WKZxPxze7d2HD3AyXpT7U22PZ5y74xRpqZ6A2bJ+kQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="data.js"></script>
-    <script>
-        console.log(data)
-            // const headerTitle = 'JOBSTORIES - Doku';
-            // const ghLink = 'https://github.com/KoljaL/';
-            // const baseURL = './';
-            // const linkList = [{
-            //         title: 'home',
-            //         url: 'index.md',
-            //         class: 'home'
-            //     }, {
-            //         title: 'multiLanguage',
-            //         url: 'multiLanguage.md',
-            //         class: 'api'
-            //     }, {
-            //         title: 'Spezialseiten',
-            //         url: 'specialpages.md',
-            //         class: 'svelte'
-            //     }
-
-        // ];
-    </script>
 </head>
 
 <body>
@@ -366,6 +345,7 @@
 
     function createLinks() {
         document.getElementById('headerTitle').innerHTML = data.headerTitle;
+        document.title = data.headerTitle;
         let HTML = '';
         data.files.forEach(link => {
             if (link.class === 'home') {
@@ -380,7 +360,7 @@
 
 
     function load(file, closeSidebar = true) {
-        fetch(data.baseURL + file)
+        fetch(file)
             .then((response) => response.text())
             .then((data) => md.render(data))
             .then((markdown) => fadeContent(markdown))
@@ -390,7 +370,7 @@
     }
 
     function toggleSidebar() {
-        if (event.target.id !== 'headerTitle') {
+        if (event.target.id !== 'headerTitle' && event.target.id !== 'homeLink') {
             document.body.classList.toggle("showSidebar");
         }
     }
@@ -411,10 +391,8 @@
      * add an attribute with browsername to body tag
      */
     function browserDetection() {
-
         let userAgent = navigator.userAgent;
         let browserName;
-
         if (userAgent.match(/chrome|chromium|crios/i)) {
             browserName = "chrome";
         } else if (userAgent.match(/firefox|fxios/i)) {

@@ -52,6 +52,7 @@
 
         <fieldset class="token">
             <legend>Token in Parts</legend>
+            <a id="clear" onclick="ClearToken()">clear</a>
             <label>Header
                 <input type="text" id="TokenHeader">
             </label>
@@ -97,21 +98,10 @@
             }
         });
 
-        function OverlayMessage(message, type) {
-            console.log('message', message)
-            OverlayMessageOverlay.style.dispaly = 'flex';
-            switch (type) {
-                case 'primary':
-                    OverlayMessageText.classList.add('primary');
-                    OverlayMessageText.innerHTML = message;
-                    break;
-
-                default:
-                    break;
-            }
-            setTimeout(() => {
-                OverlayMessageOverlay.style.dispaly = 'none';
-            }, 2000);
+        function ClearToken() {
+            TokenHeader.value = '';
+            TokenPayload.value = '';
+            TokenSignature.value = '';
         }
 
         // https://reqbin.com/code/javascript/ricgaie0/javascript-fetch-api-example
@@ -197,8 +187,6 @@
                             <img src="${user.avatar}" />
                             `;
                         UserProfile.style.display = 'block';
-                        OverlayMessage(user.name + ' logged in', 'primary');
-
                     } else {
                         UserProfile.style.display = 'block';
                         UserProfile.innerHTML = `<span class=error>${json.message}</span>`;

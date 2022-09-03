@@ -1,14 +1,13 @@
 const data = {
-    baseURL: "./files/",
-    ghLink: "https://github.com/KoljaL/",
-    headerTitle: "JOBSTORIES - Doku",
+    ghLink: "https://github.com/KoljaL/MIA-API",
+    headerTitle: "MIA-API-Doku",
     files: [{
         title: "home",
-        url: "readme.md",
+        url: "../readme.md",
         class: "home"
     }, {
         title: "API-Docs",
-        url: "API-Docs.md",
+        url: "./files/API-Docs.md",
         class: "api"
     }]
 };

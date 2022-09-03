@@ -718,6 +718,7 @@ fieldset {
     border-radius: 4px;
     border: var(--border);
     padding: .5em 1em;
+    position: relative;
 }
 
 textarea:hover,
@@ -956,6 +957,12 @@ fieldset.token {
 
 span.error {
     color: #ff8c00ad;
+}
+
+#clear {
+    position: absolute;
+    right: 1.5rem;
+    top: 0rem;
 }
 
 #OverlayMessageOverlay {
