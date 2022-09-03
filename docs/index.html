@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JOBSTORIES Docs</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='%23988cca' width='24' height='24' viewBox='0 0 24 24'><path d='M21.312 12.644c-.972-1.189-3.646-4.212-4.597-5.284l-1.784 1.018 4.657 5.35c.623.692.459 1.704-.376 2.239-.773.497-5.341 3.376-6.386 4.035-.074-.721-.358-1.391-.826-1.948-.469-.557-6.115-7.376-7.523-9.178-.469-.601-.575-1.246-.295-1.817.268-.549.842-.918 1.43-.918.919 0 1.408.655 1.549 1.215.16.641-.035 1.231-.623 1.685l1.329 1.624 7.796-4.446c1.422-1.051 1.822-2.991.93-4.513-.618-1.053-1.759-1.706-2.978-1.706-1.188 0-.793-.016-9.565 4.475-1.234.591-2.05 1.787-2.05 3.202 0 .87.308 1.756.889 2.487 1.427 1.794 7.561 9.185 7.616 9.257.371.493.427 1.119.15 1.673-.277.555-.812.886-1.429.886-.919 0-1.408-.655-1.549-1.216-.156-.629.012-1.208.604-1.654l-1.277-1.545c-.822.665-1.277 1.496-1.377 2.442-.232 2.205 1.525 3.993 3.613 3.993.596 0 1.311-.177 1.841-.51l9.427-5.946c.957-.664 1.492-1.781 1.492-2.897 0-.744-.24-1.454-.688-2.003zm-8.292-10.492c.188-.087.398-.134.609-.134.532 0 .997.281 1.243.752.312.596.226 1.469-.548 1.912l-5.097 2.888c-.051-1.089-.579-2.081-1.455-2.732l5.248-2.686zm-2.374 12.265l.991-2.691.813 1.017-.445 1.433 1.782.238.812 1.015-3.399-.321-.554-.691zm5.481-3.076l.552.691-.99 2.691-.812-1.015.44-1.438-1.778-.232-.812-1.016 3.4.319z' /></svg>"
+        type="image/svg+xml" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js" integrity="sha512-SYfDUYPg5xspsG6OOpXU366G8SZsdHOhqk/icdrYJ2E/WKZxPxze7d2HD3AyXpT7U22PZ5y74xRpqZ6A2bJ+kQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="data.js"></script>
+    <script>
+        console.log(data)
+            // const headerTitle = 'JOBSTORIES - Doku';
+            // const ghLink = 'https://github.com/KoljaL/';
+            // const baseURL = './';
+            // const linkList = [{
+            //         title: 'home',
+            //         url: 'index.md',
+            //         class: 'home'
+            //     }, {
+            //         title: 'multiLanguage',
+            //         url: 'multiLanguage.md',
+            //         class: 'api'
+            //     }, {
+            //         title: 'Spezialseiten',
+            //         url: 'specialpages.md',
+            //         class: 'svelte'
+            //     }
+
+        // ];
+    </script>
+</head>
+
+<body>
+
+    <main>
+        <header>
+            <div class="toggleSidebar" onclick="toggleSidebar()"></div>
+            <div id="headerMenu">
+                <div id="homeLink"></div>
+                <div id="headerTitle"></div>
+            </div>
+
+        </header>
+        <aside>
+            <nav></nav>
+            <div id="footer">
+                <div class="withLove">
+                    <a href="https://github.com/KoljaL/" title="Link to Github Repository" target="_blank">
+                        Made with
+                        <svg viewBox="0 0 1792 1792" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#8E1B1B" d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26T145 952.5 77 855 23.5 734 0 596q0-220 127-344t351-124q62 0 126.5 21.5t120 58T820 276t76 68q36-36 76-68t95.5-68.5 120-58T1314 128q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
+                        </svg>
+                        by
+                        <img src="https://rasal.de/img/simpleDocsJOBSTORIES-15.png" alt="KoljaL">
+                    </a>
+                </div>
+            </div>
+        </aside>
+        <article></article>
+        <footer></footer>
+    </main>
+
+</body>
+
+<style>
+     :root {
+        /* layout */
+        --main-width: 1000px;
+        --header-height: 50px;
+        --sidebar-width: 200px;
+        --footer-height: 0px;
+        /* bg-color */
+        --header-bg-color: #232327;
+        --sidebar-bg-color: #2c2c31;
+        --page-bg-color: #27272b;
+        --footer-bg-color: #232327;
+        /* font-color */
+        --link-color: #988cca;
+        --text-color: #818181;
+        /* misc */
+        --border: 1px solid #1b1b20;
+    }
+    
+     ::-webkit-scrollbar {
+        display: none;
+    }
+    
+    * {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        box-sizing: border-box;
+    }
+    
+    body {
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--page-bg-color);
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--text-color);
+        display: flex;
+        justify-content: center;
+    }
+    
+    main {
+        display: grid;
+        grid-template-columns: var(--sidebar-width) auto;
+        grid-gap: 0;
+        grid-row-gap: 0;
+        width: var(--main-width);
+        max-width: 100vw;
+        border-inline: var(--border);
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    }
+    
+    header {
+        grid-column: 1 / 3;
+        height: var(--header-height);
+        display: flex;
+        /* justify-content: space-between; */
+        align-items: center;
+        background: var(--header-bg-color);
+        border-bottom: var(--border);
+    }
+    
+    header .toggleSidebar {
+        display: none;
+    }
+    
+    header #headerMenu {
+        width: max-content;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        z-index: 100;
+    }
+    
+    header #ghLink {
+        height: 25px;
+        padding-right: 1rem;
+    }
+    
+    footer {
+        grid-column: 1 / 3;
+        height: var(--footer-height);
+        display: flex;
+        justify-content: end;
+        background: var(--footer-bg-color);
+        border-top: var(--border);
+    }
+    
+    aside,
+    article {
+        height: calc(100vh - var(--header-height) - var(--footer-height) - 1px);
+    }
+    
+    article {
+        overflow-y: scroll;
+        padding: 1rem;
+        opacity: 1;
+        transition: opacity 0.1s;
+    }
+    
+    aside {
+        transition: all .5s;
+        background: var(--sidebar-bg-color);
+        border-right: var(--border);
+    }
+    
+    aside #footer {
+        position: absolute;
+        bottom: 0;
+        height: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: var(--sidebar-width);
+        background: var(--footer-bg-color);
+        border-right: var(--border);
+        border-top: var(--border);
+    }
+    
+    aside #footer .withLove {
+        position: relative;
+        bottom: 1px;
+    }
+    
+    aside #footer .withLove a {
+        font-size: .8rem;
+        color: var(--text-color)
+    }
+    
+    aside #footer .withLove img {
+        padding-bottom: 3px;
+        position: relative;
+        top: 6px;
+    }
+    
+    aside #footer .withLove svg {
+        height: 0.7rem;
+        position: relative;
+        top: 2px;
+    }
+    
+    @media all and (max-width: 800px) {
+        header .toggleSidebar {
+            display: block;
+        }
+        aside {
+            position: absolute;
+            top: var(--header-height);
+            transform: translateX(calc(var(--sidebar-width) * -1));
+            transition: all .5s;
+        }
+        .showSidebar aside {
+            left: 0;
+            width: var(--sidebar-width);
+            transform: translateX(0);
+        }
+        article {
+            grid-column: 1 / 3;
+        }
+    }
+    
+    .toggleSidebar {
+        mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'  viewBox='0 0 24 24' stroke='%23FFF' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16M4 12h16M4 18h16' /></svg>");
+        width: 40px;
+        height: 40px;
+        margin-top: 5px;
+        background-color: var(--text-color);
+        cursor: pointer;
+    }
+    
+    [data-browser="chrome"] .toggleSidebar {
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'  viewBox='0 0 24 24' stroke='%23818181' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16M4 12h16M4 18h16' /></svg>");
+        background-color: transparent;
+    }
+    
+    .showSidebar .toggleSidebar {
+        mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M6 18L18 6M6 6l12 12' /></svg>");
+    }
+    
+    [data-browser="chrome"] .showSidebar .toggleSidebar {
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='%23818181' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M6 18L18 6M6 6l12 12' /></svg>");
+        background-color: transparent;
+    }
+    
+    #ghLink:hover,
+    #homeLink:hover,
+    .toggleSidebar:hover {
+        filter: brightness(130%);
+    }
+    
+    #homeLink {
+        mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24'><path d='M21.312 12.644c-.972-1.189-3.646-4.212-4.597-5.284l-1.784 1.018 4.657 5.35c.623.692.459 1.704-.376 2.239-.773.497-5.341 3.376-6.386 4.035-.074-.721-.358-1.391-.826-1.948-.469-.557-6.115-7.376-7.523-9.178-.469-.601-.575-1.246-.295-1.817.268-.549.842-.918 1.43-.918.919 0 1.408.655 1.549 1.215.16.641-.035 1.231-.623 1.685l1.329 1.624 7.796-4.446c1.422-1.051 1.822-2.991.93-4.513-.618-1.053-1.759-1.706-2.978-1.706-1.188 0-.793-.016-9.565 4.475-1.234.591-2.05 1.787-2.05 3.202 0 .87.308 1.756.889 2.487 1.427 1.794 7.561 9.185 7.616 9.257.371.493.427 1.119.15 1.673-.277.555-.812.886-1.429.886-.919 0-1.408-.655-1.549-1.216-.156-.629.012-1.208.604-1.654l-1.277-1.545c-.822.665-1.277 1.496-1.377 2.442-.232 2.205 1.525 3.993 3.613 3.993.596 0 1.311-.177 1.841-.51l9.427-5.946c.957-.664 1.492-1.781 1.492-2.897 0-.744-.24-1.454-.688-2.003zm-8.292-10.492c.188-.087.398-.134.609-.134.532 0 .997.281 1.243.752.312.596.226 1.469-.548 1.912l-5.097 2.888c-.051-1.089-.579-2.081-1.455-2.732l5.248-2.686zm-2.374 12.265l.991-2.691.813 1.017-.445 1.433 1.782.238.812 1.015-3.399-.321-.554-.691zm5.481-3.076l.552.691-.99 2.691-.812-1.015.44-1.438-1.778-.232-.812-1.016 3.4.319z' /></svg>");
+        width: 40px;
+        height: 40px;
+        margin-inline: 1rem;
+        display: inline-block;
+        background-color: var(--link-color);
+        cursor: pointer;
+    }
+    
+    [data-browser="chrome"] #homeLink {
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='%23988cca' viewBox='0 0 24 24'><path d='M21.312 12.644c-.972-1.189-3.646-4.212-4.597-5.284l-1.784 1.018 4.657 5.35c.623.692.459 1.704-.376 2.239-.773.497-5.341 3.376-6.386 4.035-.074-.721-.358-1.391-.826-1.948-.469-.557-6.115-7.376-7.523-9.178-.469-.601-.575-1.246-.295-1.817.268-.549.842-.918 1.43-.918.919 0 1.408.655 1.549 1.215.16.641-.035 1.231-.623 1.685l1.329 1.624 7.796-4.446c1.422-1.051 1.822-2.991.93-4.513-.618-1.053-1.759-1.706-2.978-1.706-1.188 0-.793-.016-9.565 4.475-1.234.591-2.05 1.787-2.05 3.202 0 .87.308 1.756.889 2.487 1.427 1.794 7.561 9.185 7.616 9.257.371.493.427 1.119.15 1.673-.277.555-.812.886-1.429.886-.919 0-1.408-.655-1.549-1.216-.156-.629.012-1.208.604-1.654l-1.277-1.545c-.822.665-1.277 1.496-1.377 2.442-.232 2.205 1.525 3.993 3.613 3.993.596 0 1.311-.177 1.841-.51l9.427-5.946c.957-.664 1.492-1.781 1.492-2.897 0-.744-.24-1.454-.688-2.003zm-8.292-10.492c.188-.087.398-.134.609-.134.532 0 .997.281 1.243.752.312.596.226 1.469-.548 1.912l-5.097 2.888c-.051-1.089-.579-2.081-1.455-2.732l5.248-2.686zm-2.374 12.265l.991-2.691.813 1.017-.445 1.433 1.782.238.812 1.015-3.399-.321-.554-.691zm5.481-3.076l.552.691-.99 2.691-.812-1.015.44-1.438-1.778-.232-.812-1.016 3.4.319z' /></svg>");
+        width: 40px;
+        height: 40px;
+        margin-inline: 1rem;
+        display: inline-block;
+        background-color: transparent;
+        cursor: pointer;
+    }
+    /**
+    * STYLE 
+    */
+    
+    #headerTitle {
+        font-size: 40px;
+        color: var(--text-color);
+    }
+    
+    aside li {
+        list-style: none;
+        text-decoration: none;
+        font-size: 14px;
+        background-color: #2a2a30;
+        padding: 6px 15px;
+        margin: 5px;
+        border-radius: 5px;
+        border: var(--border);
+        cursor: pointer;
+    }
+    
+    li.svelte {
+        color: hsl(19, 67%, 45%);
+    }
+    
+    li.api {
+        color: #8892BF;
+    }
+    
+    aside li:hover,
+    a:hover {
+        filter: brightness(130%);
+    }
+    
+    h3 code {
+        background-color: #2c2c31;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 14.5px;
+        font-weight: normal;
+        border: 1px solid #1b1b20;
+        letter-spacing: 0.4px;
+    }
+    
+    p strong {
+        color: #cb7832;
+    }
+    
+    p code {
+        color: #6a8759;
+    }
+    
+    h1 {
+        color: #988cca;
+        text-shadow: 0px 2px 3px #1b1c1f;
+        font-size: 22px;
+        margin: 0px 0px 15px 0px;
+    }
+    
+    h2 {
+        font-size: 19px;
+        font-weight: bold;
+        color: #c19c90;
+        margin-top: 55px;
+        margin-bottom: 10px;
+    }
+    
+    h3 {
+        margin-top: 35px;
+        color: #c9ac57;
+        font-size: 15px;
+    }
+    
+    a {
+        color: #2798e4;
+        text-decoration: none;
+    }
+</style>
+<script>
+    //
+    // LOAD
+    //
+    var md = window.markdownit();
+
+    //
+    // FUNCTIONS
+    //
+
+    function createLinks() {
+        document.getElementById('headerTitle').innerHTML = data.headerTitle;
+        let HTML = '';
+        data.files.forEach(link => {
+            if (link.class === 'home') {
+                load(link.url, false);
+                document.getElementById('headerMenu').setAttribute('onclick', `load('${link.url}')`)
+            } else {
+                HTML += `<li class="${link.class}" onclick="load('${link.url}')">${link.title}</li>`;
+            }
+        });
+        document.getElementsByTagName('nav')[0].innerHTML = HTML;
+    }
+
+
+    function load(file, closeSidebar = true) {
+        fetch(data.baseURL + file)
+            .then((response) => response.text())
+            .then((data) => md.render(data))
+            .then((markdown) => fadeContent(markdown))
+        if (closeSidebar) {
+            toggleSidebar()
+        }
+    }
+
+    function toggleSidebar() {
+        if (event.target.id !== 'headerTitle') {
+            document.body.classList.toggle("showSidebar");
+        }
+    }
+
+
+    function fadeContent(HTML) {
+        document.getElementsByTagName('article')[0].style.opacity = 0;
+        setTimeout(() => {
+            document.getElementsByTagName('article')[0].innerHTML = HTML;
+            setTimeout(() => {
+                document.getElementsByTagName('article')[0].style.opacity = 1;
+            }, 100);
+        }, 100);
+    }
+
+    /**
+     * Browser detection 
+     * add an attribute with browsername to body tag
+     */
+    function browserDetection() {
+
+        let userAgent = navigator.userAgent;
+        let browserName;
+
+        if (userAgent.match(/chrome|chromium|crios/i)) {
+            browserName = "chrome";
+        } else if (userAgent.match(/firefox|fxios/i)) {
+            browserName = "firefox";
+        } else if (userAgent.match(/safari/i)) {
+            browserName = "safari";
+        } else if (userAgent.match(/opr\//i)) {
+            browserName = "opera";
+        } else if (userAgent.match(/edg/i)) {
+            browserName = "edge";
+        } else {
+            browserName = "No browser detection";
+        }
+        document.documentElement.setAttribute('data-browser', browserName);
+        // console.log(browserName)
+    }
+
+    //
+    // RUN
+    //
+    browserDetection();
+    createLinks();
+</script>
+
+</html>

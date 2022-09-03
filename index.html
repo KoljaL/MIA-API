@@ -100,18 +100,18 @@
         function OverlayMessage(message, type) {
             console.log('message', message)
             OverlayMessageOverlay.style.dispaly = 'flex';
-            // switch (type) {
-            //     case 'primary':
-            //         OverlayMessageText.classList.add('primary');
-            //         OverlayMessageText.innerHTML = message;
-            //         break;
+            switch (type) {
+                case 'primary':
+                    OverlayMessageText.classList.add('primary');
+                    OverlayMessageText.innerHTML = message;
+                    break;
 
-            //     default:
-            //         break;
-            // }
-            // setTimeout(() => {
-            //     // OverlayMessageOverlay.style.dispaly = 'none';
-            // }, 2000);
+                default:
+                    break;
+            }
+            setTimeout(() => {
+                OverlayMessageOverlay.style.dispaly = 'none';
+            }, 2000);
         }
 
         // https://reqbin.com/code/javascript/ricgaie0/javascript-fetch-api-example
@@ -128,7 +128,7 @@
                     UserPassword.value = 'password';
                     break;
                 case 'alice':
-                    UserEmail.value = 'alice-bob@secure.net';
+                    UserEmail.value = 'alice+bob@secure.net';
                     UserPassword.value = 'password';
                     break;
 
@@ -200,8 +200,8 @@
                         OverlayMessage(user.name + ' logged in', 'primary');
 
                     } else {
-                        OverlayMessage(json.message, 'primary');
-                        UserProfile.innerHTML = '';
+                        UserProfile.style.display = 'block';
+                        UserProfile.innerHTML = `<span class=error>${json.message}</span>`;
                     }
                 })
         }

@@ -935,6 +935,7 @@ p>select {
     width: 500px;
     margin-inline: auto;
     height: max-content;
+    background-color: var(--clight);
 }
 
 #UserProfile img {
@@ -953,7 +954,11 @@ fieldset.token {
     align-self: flex-end;
 }
 
-#OverlayMessage {
+span.error {
+    color: #ff8c00ad;
+}
+
+#OverlayMessageOverlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -961,7 +966,6 @@ fieldset.token {
     bottom: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #0b9;
     align-items: center;
     justify-content: center;
 }
